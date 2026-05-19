@@ -1,76 +1,102 @@
-# Urban Routes - Proyecto de Automatización QA
+# Urban Routes QA Automation Project
 
-## Descripción del proyecto
+## Descripción
 
-Este proyecto automatiza pruebas funcionales de la aplicación **Urban Routes** utilizando **Selenium WebDriver** y **Pytest**.
+Este proyecto automatiza pruebas funcionales de la plataforma **Urban Routes** utilizando **Python, Selenium y Pytest**, aplicando el patrón **Page Object Model (POM)**.
 
-El objetivo es validar el flujo principal de solicitud de taxi aplicando el patrón **Page Object Model (POM)** y ejecutando pruebas desacopladas e independientes para cada funcionalidad del sistema.
+El objetivo es validar de forma independiente los principales escenarios del flujo de solicitud de taxi.
 
 ---
 
 ## Tecnologías utilizadas
 
-- Python 3
-- Selenium WebDriver
-- Pytest
-- ChromeDriver
-- Page Object Model (POM)
+* Python 3.14
+* Selenium WebDriver
+* Pytest
+* ChromeDriver
+* Page Object Model (POM)
 
 ---
 
 ## Estructura del proyecto
 
-```bash
+```text
 qa-project-Urban-Routes-es/
-
-│── data.py
-│── helpers.py
-│── pages.py
-│── README.md
-│── __init__.py
-
-└── tests/
-    │── __init__.py
-    │── test_urban_routes.py
+│
+├── conftest.py
+├── data.py
+├── helpers.py
+├── pages.py
+│
+├── tests/
+│   ├── test_add_card.py
+│   ├── test_add_phone.py
+│   ├── test_confirm_code.py
+│   ├── test_order_ice_cream.py
+│   ├── test_request_blanket.py
+│   ├── test_search_taxi.py
+│   ├── test_select_comfort.py
+│   ├── test_send_message.py
+│   └── test_set_route.py
 ```
 
 ---
 
 ## Escenarios automatizados
 
-El proyecto contiene **9 pruebas independientes**:
+### 1. Configuración de ruta
 
-- Configuración de dirección inicial
-- Selección de tarifa Comfort
-- Ingreso de número telefónico
-- Agregado de tarjeta bancaria
-- Confirmación de código
-- Envío de mensaje al conductor
-- Solicitud de manta y pañuelos
-- Pedido de 2 helados
-- Validación del modal de búsqueda de taxi
+Valida que el usuario pueda ingresar dirección de origen y destino.
+
+### 2. Selección de tarifa Comfort
+
+Verifica la selección correcta de la tarifa Comfort.
+
+### 3. Registro de número telefónico
+
+Valida el ingreso y confirmación del teléfono.
+
+### 4. Agregar método de pago
+
+Verifica el registro exitoso de tarjeta bancaria.
+
+### 5. Confirmación de código
+
+Valida confirmación correcta del código recibido.
+
+### 6. Envío de mensaje al conductor
+
+Comprueba que el mensaje sea enviado correctamente.
+
+### 7. Solicitud de manta y pañuelos
+
+Verifica activación del servicio adicional.
+
+### 8. Pedido de dos helados
+
+Valida incremento correcto del contador.
+
+### 9. Búsqueda y asignación de conductor
+
+Verifica aparición del modal y asignación del conductor.
 
 ---
 
-## Técnicas implementadas
+## Instalación
 
-- Automatización UI
-- Localización de elementos:
-  - XPath
-  - CSS Selector
-  - ID
-  - Class Name
-- Esperas explícitas (`WebDriverWait`)
-- Manejo de overlays y modales
-- Captura automática de código telefónico desde logs de red
-- Patrón Page Object Model (POM)
-- Pruebas desacopladas y reutilizables
+Crear entorno virtual:
 
----
+```bash
+python -m venv .venv
+```
 
-## Instalación de dependencias
+Activar entorno virtual (Windows):
 
-Instalar:
+```bash
+.venv\Scripts\activate
+```
+
+Instalar dependencias:
 
 ```bash
 pip install selenium pytest
@@ -78,57 +104,33 @@ pip install selenium pytest
 
 ---
 
-## Ejecutar todas las pruebas
+## Ejecución de pruebas
+
+Ejecutar todas las pruebas:
 
 ```bash
-python -m pytest tests/test_urban_routes.py -v
+pytest tests -v
+```
+
+Ejecutar una prueba específica:
+
+```bash
+pytest tests/test_add_phone.py -v
+```
+
+Ejecutar una función específica:
+
+```bash
+pytest tests/test_search_taxi.py::test_search_taxi -v
 ```
 
 ---
 
-## Ejecutar una prueba específica
+## Resultados esperados
 
-### Agregar tarjeta
+Todas las pruebas deben ejecutarse de forma independiente y finalizar exitosamente:
 
-```bash
-python -m pytest tests/test_urban_routes.py::TestUrbanRoutes::test_add_card -v
-```
-
-### Seleccionar Comfort
-
-```bash
-python -m pytest tests/test_urban_routes.py::TestUrbanRoutes::test_select_comfort -v
-```
-
-### Validar modal final
-
-```bash
-python -m pytest tests/test_urban_routes.py::TestUrbanRoutes::test_search_taxi_modal -v
-```
-
----
-
-## Patrón de diseño aplicado
-
-**Page Object Model (POM)**
-
-Separación de responsabilidades:
-
-- **data.py** → datos de prueba
-- **helpers.py** → utilidades auxiliares
-- **pages.py** → localizadores y acciones
-- **tests/** → casos de prueba
-
----
-
-## Resultado esperado
-
-Ejecución exitosa:
-
-```bash
-============================= test session starts =============================
-collected 9 items
-
+```text
 9 passed
 ```
 
@@ -136,4 +138,6 @@ collected 9 items
 
 ## Autor
 
-Proyecto desarrollado como parte del Sprint de Automatización QA en TripleTen.
+**Dairon Manzo**
+
+Proyecto desarrollado como parte del Sprint 9 de QA Automation en TripleTen.

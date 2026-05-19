@@ -40,7 +40,7 @@ class UrbanRoutesPage:
 
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(driver, 40)
+        self.wait = WebDriverWait(driver, 90)
 
     def set_route(self):
         self.wait.until(
@@ -222,4 +222,48 @@ class UrbanRoutesPage:
             EC.visibility_of_element_located(
                 self.DRIVER_MODAL
             )
+        ).is_displayed()
+
+    def route_is_set(self):
+        from_value = self.driver.find_element(
+            *self.FROM_FIELD
+        ).get_attribute("value")
+
+        to_value = self.driver.find_element(
+            *self.TO_FIELD
+        ).get_attribute("value")
+
+        return (
+            from_value == data.address_from
+            and to_value == data.address_to
+        )
+
+    def comfort_selected(self):
+        return self.driver.find_element(
+            *self.COMFORT_TARIFF
+        ).is_displayed()
+
+    def phone_added(self):
+        return self.driver.find_element(
+            *self.PHONE_BUTTON
+        ).is_displayed()
+
+    def card_added(self):
+        return self.driver.find_element(
+            *self.PAYMENT_METHOD
+        ).is_displayed()
+
+    def message_added(self):
+        return self.driver.find_element(
+            *self.MESSAGE_FIELD
+        ).get_attribute("value") == data.message_for_driver
+
+    def blanket_enabled(self):
+        return self.driver.find_element(
+            *self.BLANKET_SWITCH
+        ).is_displayed()
+
+    def ice_cream_added(self):
+        return self.driver.find_element(
+            *self.ICE_CREAM_PLUS
         ).is_displayed()
