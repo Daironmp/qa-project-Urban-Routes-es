@@ -3,7 +3,6 @@ import time
 
 from selenium.common import WebDriverException
 
-
 def retrieve_phone_code(driver):
     code = None
 
