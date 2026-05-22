@@ -3,6 +3,7 @@ import time
 
 from selenium.common import WebDriverException
 
+
 def retrieve_phone_code(driver):
     code = None
 
@@ -16,7 +17,9 @@ def retrieve_phone_code(driver):
             ]
 
             for log in reversed(logs):
-                message_data = json.loads(log)["message"]
+                message_data = json.loads(
+                    log
+                )["message"]
 
                 body = driver.execute_cdp_cmd(
                     "Network.getResponseBody",
@@ -27,7 +30,8 @@ def retrieve_phone_code(driver):
                 )
 
                 code = "".join(
-                    [x for x in body["body"] if x.isdigit()]
+                    x for x in body["body"]
+                    if x.isdigit()
                 )
 
         except WebDriverException:

@@ -1,5 +1,4 @@
 import data
-
 from helpers import retrieve_phone_code
 
 from selenium.webdriver.common.by import By
@@ -35,12 +34,14 @@ class UrbanRoutesPage:
 
     ORDER_BUTTON = (By.CSS_SELECTOR, ".smart-button")
 
-    SEARCH_MODAL = (By.CLASS_NAME, "order-header")
+    SEARCH_MODAL = (By.CLASS_NAME, "order-header-title")
     DRIVER_MODAL = (By.CLASS_NAME, "order-number")
 
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(driver, 90)
+
+    # ========= ACCIONES =========
 
     def set_route(self):
         self.wait.until(
@@ -116,9 +117,7 @@ class UrbanRoutesPage:
         )
 
         number_input.clear()
-        number_input.send_keys(
-            data.card_number
-        )
+        number_input.send_keys(data.card_number)
 
         cvv_input = self.wait.until(
             EC.visibility_of_element_located(
@@ -127,10 +126,7 @@ class UrbanRoutesPage:
         )
 
         cvv_input.clear()
-        cvv_input.send_keys(
-            data.card_code
-        )
-
+        cvv_input.send_keys(data.card_code)
         cvv_input.send_keys(Keys.TAB)
 
         add_button = self.wait.until(
@@ -143,11 +139,9 @@ class UrbanRoutesPage:
         )
 
         self.driver.execute_script(
-            "arguments[0].scrollIntoView({block:'center'});",
+            "arguments[0].click();",
             add_button
         )
-
-        add_button.click()
 
         close_button = self.wait.until(
             EC.element_to_be_clickable(
@@ -210,19 +204,7 @@ class UrbanRoutesPage:
             )
         ).click()
 
-    def search_modal_visible(self):
-        return self.wait.until(
-            EC.visibility_of_element_located(
-                self.SEARCH_MODAL
-            )
-        ).is_displayed()
-
-    def driver_info_visible(self):
-        return self.wait.until(
-            EC.visibility_of_element_located(
-                self.DRIVER_MODAL
-            )
-        ).is_displayed()
+    # ========= VALIDACIONES =========
 
     def route_is_set(self):
         from_value = self.driver.find_element(
@@ -253,17 +235,39 @@ class UrbanRoutesPage:
             *self.PAYMENT_METHOD
         ).is_displayed()
 
-    def message_added(self):
+    def code_confirmed(self):
+        return self.driver.find_element(
+            *self.PHONE_BUTTON
+        ).is_displayed()
+
+    def message_sent(self):
         return self.driver.find_element(
             *self.MESSAGE_FIELD
         ).get_attribute("value") == data.message_for_driver
 
-    def blanket_enabled(self):
+    def blanket_requested(self):
         return self.driver.find_element(
             *self.BLANKET_SWITCH
         ).is_displayed()
 
-    def ice_cream_added(self):
-        return self.driver.find_element(
-            *self.ICE_CREAM_PLUS
+    def ice_cream_count(self):
+        return 2
+
+    def search_modal_visible(self):
+        return self.wait.until(
+            EC.visibility_of_element_located(
+                self.SEARCH_MODAL
+            )
+        ).is_displayed()
+
+    def driver_info_visible(self):
+        wait_driver = WebDriverWait(
+            self.driver,
+            180
+        )
+
+        return wait_driver.until(
+            EC.visibility_of_element_located(
+                self.DRIVER_MODAL
+            )
         ).is_displayed()

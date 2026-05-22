@@ -13,9 +13,9 @@ def driver():
     )
 
     driver = webdriver.Chrome(options=options)
-
     driver.maximize_window()
 
     yield driver
 
+   # input("\nPresiona ENTER para cerrar navegador...")
     driver.quit()

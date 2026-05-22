@@ -4,17 +4,32 @@
 
 Este proyecto automatiza pruebas funcionales de la plataforma **Urban Routes** utilizando **Python, Selenium y Pytest**, aplicando el patrón **Page Object Model (POM)**.
 
-El objetivo es validar de forma independiente los principales escenarios del flujo de solicitud de taxi.
+El objetivo es validar de forma independiente los principales escenarios del flujo de solicitud de taxi, garantizando estabilidad, mantenibilidad y reutilización del código.
 
 ---
 
 ## Tecnologías utilizadas
 
-* Python 3.14
-* Selenium WebDriver
-* Pytest
-* ChromeDriver
-* Page Object Model (POM)
+- Python 3.14
+- Selenium WebDriver
+- Pytest
+- ChromeDriver
+- Page Object Model (POM)
+
+---
+
+## Técnicas implementadas
+
+- Automatización funcional de interfaz web
+- Page Object Model
+- Esperas explícitas
+- Assertions reales
+- Pruebas independientes
+- Uso de múltiples localizadores:
+  - ID
+  - XPATH
+  - CLASS_NAME
+  - CSS_SELECTOR
 
 ---
 
@@ -27,17 +42,9 @@ qa-project-Urban-Routes-es/
 ├── data.py
 ├── helpers.py
 ├── pages.py
-│
-├── tests/
-│   ├── test_add_card.py
-│   ├── test_add_phone.py
-│   ├── test_confirm_code.py
-│   ├── test_order_ice_cream.py
-│   ├── test_request_blanket.py
-│   ├── test_search_taxi.py
-│   ├── test_select_comfort.py
-│   ├── test_send_message.py
-│   └── test_set_route.py
+├── test_urban_routes.py
+├── README.md
+└── .venv/
 ```
 
 ---
@@ -45,58 +52,49 @@ qa-project-Urban-Routes-es/
 ## Escenarios automatizados
 
 ### 1. Configuración de ruta
-
-Valida que el usuario pueda ingresar dirección de origen y destino.
+Valida el ingreso correcto de origen y destino.
 
 ### 2. Selección de tarifa Comfort
-
 Verifica la selección correcta de la tarifa Comfort.
 
 ### 3. Registro de número telefónico
-
-Valida el ingreso y confirmación del teléfono.
+Valida el ingreso y confirmación del número telefónico.
 
 ### 4. Agregar método de pago
-
-Verifica el registro exitoso de tarjeta bancaria.
+Verifica el registro correcto de tarjeta bancaria.
 
 ### 5. Confirmación de código
-
-Valida confirmación correcta del código recibido.
+Valida la confirmación del código recibido.
 
 ### 6. Envío de mensaje al conductor
-
-Comprueba que el mensaje sea enviado correctamente.
+Comprueba que el mensaje se envíe correctamente.
 
 ### 7. Solicitud de manta y pañuelos
-
-Verifica activación del servicio adicional.
+Verifica la activación del servicio adicional.
 
 ### 8. Pedido de dos helados
-
-Valida incremento correcto del contador.
+Valida el incremento correcto del contador.
 
 ### 9. Búsqueda y asignación de conductor
-
-Verifica aparición del modal y asignación del conductor.
+Verifica la aparición del modal de búsqueda y la asignación del conductor.
 
 ---
 
 ## Instalación
 
-Crear entorno virtual:
+### Crear entorno virtual
 
 ```bash
 python -m venv .venv
 ```
 
-Activar entorno virtual (Windows):
+### Activar entorno virtual (Windows)
 
 ```bash
 .venv\Scripts\activate
 ```
 
-Instalar dependencias:
+### Instalar dependencias
 
 ```bash
 pip install selenium pytest
@@ -106,22 +104,22 @@ pip install selenium pytest
 
 ## Ejecución de pruebas
 
-Ejecutar todas las pruebas:
+### Ejecutar todas las pruebas
 
 ```bash
-pytest tests -v
+pytest test_urban_routes.py -v
 ```
 
-Ejecutar una prueba específica:
+### Ejecutar una prueba específica
 
 ```bash
-pytest tests/test_add_phone.py -v
+pytest test_urban_routes.py::TestUrbanRoutes::test_add_card -v
 ```
 
-Ejecutar una función específica:
+### Ejecutar prueba de búsqueda de taxi
 
 ```bash
-pytest tests/test_search_taxi.py::test_search_taxi -v
+pytest test_urban_routes.py::TestUrbanRoutes::test_search_taxi_modal -v -s
 ```
 
 ---
@@ -140,4 +138,4 @@ Todas las pruebas deben ejecutarse de forma independiente y finalizar exitosamen
 
 **Dairon Manzo**
 
-Proyecto desarrollado como parte del Sprint 9 de QA Automation en TripleTen.
+Proyecto desarrollado como parte del **Sprint 9 de QA Automation en TripleTen**.
